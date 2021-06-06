@@ -1,8 +1,8 @@
 package com.resto.packages.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,36 +13,26 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "menu_items")
 @Getter
 @Setter
-public class UserEntity {
+public class MenuItemsEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "menu_id", nullable = false)
+    private String menuId;
 
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+    @Column(name = "restaurant_id", nullable = false)
+    private String restaurantId;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @ColumnTransformer(read = "UNCOMPRESS(categories)", write = "COMPRESS(?)")
+    @Column(name = "categories", nullable = false, columnDefinition = "LONGBLOB")
+    private String categories;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "email_id", nullable = false)
-    private String emailId;
-
-    @Column(name = "password", nullable = false)
-    private String password;
+    @ColumnTransformer(read = "UNCOMPRESS(items)", write = "COMPRESS(?)")
+    @Column(name = "items", nullable = false, columnDefinition = "LONGBLOB")
+    private String items;
 
     @CreatedBy
     @Basic
@@ -63,14 +53,4 @@ public class UserEntity {
     @Basic
     @Column(name = "LAST_UPDATED_ON")
     private Date lastModifiedDate;
-
-    @Column(name = "terms_and_conditions")
-    private Boolean termsAndConditions;
-
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
-
 }

@@ -1,8 +1,8 @@
 package com.resto.packages.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,36 +13,23 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "widget")
 @Getter
 @Setter
-public class UserEntity {
+
+public class WidgetEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "widget_id", nullable = false)
+    private String widgetId;
 
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+    @Column(name = "widget_key", nullable = false)
+    private String widgetKey;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "email_id", nullable = false)
-    private String emailId;
-
-    @Column(name = "password", nullable = false)
-    private String password;
+    @ColumnTransformer(read = "UNCOMPRESS(widget_data)", write = "COMPRESS(?)")
+    @Column(name = "widget_data", nullable = false, columnDefinition = "LONGBLOB")
+    private String widgetData;
 
     @CreatedBy
     @Basic
@@ -63,14 +50,4 @@ public class UserEntity {
     @Basic
     @Column(name = "LAST_UPDATED_ON")
     private Date lastModifiedDate;
-
-    @Column(name = "terms_and_conditions")
-    private Boolean termsAndConditions;
-
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
-
 }

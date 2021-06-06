@@ -9,8 +9,12 @@ import java.util.List;
 
 @Repository
 public interface UsersRepository extends JpaRepository<UserEntity, String> {
-    List<UserEntity> findByUserId(String id);
+    UserEntity findByUserId(String id);
 
-    List<UserEntity> findByEmailId(String emailId);
+    UserEntity findByEmailId(String emailId);
+
+    UserEntity findByEmailIdAndPassword(String emailId, String password);
+
+    Long deleteByUserId(String userId);
 
 }

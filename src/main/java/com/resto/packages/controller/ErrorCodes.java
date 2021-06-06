@@ -5,14 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class APIResponse<T> {
-    private T response;
-
-    private boolean success = true;
+public class ErrorCodes {
 
     private String successCode;
 
     private String errorCode;
 
-    private String message;
 }
