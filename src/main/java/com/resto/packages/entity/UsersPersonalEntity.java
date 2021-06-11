@@ -27,16 +27,16 @@ public class UsersPersonalEntity {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "address", nullable = false, columnDefinition = "LONGBLOB")
+    @Column(name = "address", columnDefinition = "LONGBLOB")
     private String address;
 
     @Column(name = "district", nullable = false)

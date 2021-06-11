@@ -2,8 +2,10 @@ package com.resto.packages.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.resto.packages.controller.ErrorCodes;
+import com.resto.packages.dao.UsersPersonalRepository;
 import com.resto.packages.dao.UsersRepository;
 import com.resto.packages.entity.UserEntity;
+import com.resto.packages.entity.UsersPersonalEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     UsersRepository usersRepository;
+
+    @Autowired
+    UsersPersonalRepository usersPersonalRepository;
 
     @Override
     public UserEntity createUser(JsonNode reqBody) throws Exception {
@@ -131,4 +136,61 @@ public class UsersServiceImpl implements UsersService {
 
         return true;
     }
+
+    public Boolean updateUserPersonalInfo(JsonNode reqBody) throws Exception {
+        String userId = reqBody.hasNonNull("userId") ? reqBody.get("userId").asText() : null;
+        String firstName = reqBody.hasNonNull("firstName") ? reqBody.get("firstName").asText() : null;
+        String lastName = reqBody.hasNonNull("lastName") ? reqBody.get("lastName").asText() : null;
+        String type = reqBody.hasNonNull("type") ? reqBody.get("type").asText() : null;
+
+        String address = reqBody.hasNonNull("address") ? reqBody.get("address").asText() : null;
+        String district = reqBody.hasNonNull("district") ? reqBody.get("district").asText() : null;
+        String city = reqBody.hasNonNull("city") ? reqBody.get("city").asText() : null;
+        String landmark = reqBody.hasNonNull("landmark") ? reqBody.get("landmark").asText() : null;
+        String pincode = reqBody.hasNonNull("pincode") ? reqBody.get("pincode").asText() : null;
+
+        UsersPersonalEntity userPersonalInfoExists = usersPersonalRepository.findByUserId(userId);
+
+        if(userPersonalInfoExists == null){
+            UsersPersonalEntity usersPersonalEntity = new UsersPersonalEntity();
+
+            usersPersonalEntity.setFirstName(firstName);
+            usersPersonalEntity.setLastName(lastName);
+            usersPersonalEntity.setUserId(userId);
+            usersPersonalEntity.setType(type);
+            usersPersonalEntity.setAddress(address);
+            usersPersonalEntity.setDistrict(district);
+            usersPersonalEntity.setCity(city);
+            usersPersonalEntity.setLandmark(landmark);
+            usersPersonalEntity.setPincode(pincode);
+
+            usersPersonalEntity.setCreatedBy("system");
+            usersPersonalEntity.setCreatedDate(new Date());
+            usersPersonalEntity.setLastModifiedBy("system");
+            usersPersonalEntity.setLastModifiedDate(new Date());
+
+            usersPersonalRepository.save(usersPersonalEntity);
+        }
+        else{
+            userPersonalInfoExists.setFirstName(firstName);
+            userPersonalInfoExists.setLastName(lastName);
+            userPersonalInfoExists.setUserId(userId);
+            userPersonalInfoExists.setType(type);
+            userPersonalInfoExists.setAddress(address);
+            userPersonalInfoExists.setDistrict(district);
+            userPersonalInfoExists.setCity(city);
+            userPersonalInfoExists.setLandmark(landmark);
+            userPersonalInfoExists.setPincode(pincode);
+
+            userPersonalInfoExists.setLastModifiedBy("system");
+            userPersonalInfoExists.setLastModifiedDate(new Date());
+
+            usersPersonalRepository.save(userPersonalInfoExists);
+        }
+
+
+        return true;
+    }
+
+
 }

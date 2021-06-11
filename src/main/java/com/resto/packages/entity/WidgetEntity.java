@@ -27,6 +27,9 @@ public class WidgetEntity {
     @Column(name = "widget_key", nullable = false)
     private String widgetKey;
 
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
     @ColumnTransformer(read = "UNCOMPRESS(widget_data)", write = "COMPRESS(?)")
     @Column(name = "widget_data", nullable = false, columnDefinition = "LONGBLOB")
     private String widgetData;

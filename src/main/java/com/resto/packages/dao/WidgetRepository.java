@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WidgetRepository extends JpaRepository<WidgetEntity, String> {
-    WidgetEntity findByWidgetKey(String widgetKey);
+    WidgetEntity findByWidgetKeyAndUserId(String widgetKey, String id);
 
     Long deleteByWidgetKey(String widgetKey);
 }
