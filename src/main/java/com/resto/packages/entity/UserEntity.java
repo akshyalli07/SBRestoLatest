@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "d860ggrvs7bbqh")
 @Getter
 @Setter
 public class UserEntity {

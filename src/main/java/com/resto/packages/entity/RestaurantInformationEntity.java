@@ -43,8 +43,9 @@ public class RestaurantInformationEntity {
     @Column(name = "price_for_two")
     private Double priceForTwo;
 
-    @ColumnTransformer(read = "UNCOMPRESS(address)", write = "COMPRESS(?)")
-    @Column(name = "address", columnDefinition = "LONGBLOB")
+//    @ColumnTransformer(read = "UNCOMPRESS(address)", write = "COMPRESS(?)")
+//    @Column(name = "address", columnDefinition = "LONGBLOB")
+    @Column(name = "address")
     private String address;
 
     @Column(name = "district")
@@ -53,8 +54,9 @@ public class RestaurantInformationEntity {
     @Column(name = "city")
     private String city;
 
-    @ColumnTransformer(read = "UNCOMPRESS(landmark)", write = "COMPRESS(?)")
-    @Column(name = "landmark", columnDefinition = "LONGBLOB")
+//    @ColumnTransformer(read = "UNCOMPRESS(landmark)", write = "COMPRESS(?)")
+//    @Column(name = "landmark", columnDefinition = "LONGBLOB")
+    @Column(name = "landmark")
     private String landmark;
 
     @Column(name = "pincode")
